@@ -1,8 +1,3 @@
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
-  end
-})
 vim.opt.guicursor = ''
 
 vim.opt.nu = true vim.opt.relativenumber = true

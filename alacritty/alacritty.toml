@@ -1,0 +1,15 @@
+import = [
+    "~/.config/alacritty/themes/themes/meliora.toml"
+]
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "Buttonless"
+opacity = 0.8
+blur = true
+
+
+[font]
+normal.family="MesloLGS Nerd Font"
+size=14

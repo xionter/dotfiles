@@ -1,16 +1,13 @@
 return {
     "tpope/vim-fugitive",
-    dependecies = {
-        "nvim-lua/plenary.nvim"
-    },
     config = function()
-        vim.keymap.set("n", "<leader>gs", function () vim.cmd("tab Git") end)
+        vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-        local tushonochki_Fugitive = vim.api.nvim_create_augroup("tushonochki_Fugitive", {})
+        local TheTush_Fugitive = vim.api.nvim_create_augroup("TheTush_Fugitive", {})
 
         local autocmd = vim.api.nvim_create_autocmd
         autocmd("BufWinEnter", {
-            group = tushonochki_Fugitive,
+            group = TheTush_Fugitive,
             pattern = "*",
             callback = function()
                 if vim.bo.ft ~= "fugitive" then
@@ -24,10 +21,15 @@ return {
                 end, opts)
 
                 vim.keymap.set("n", "<leader>P", function()
-                    vim.cmd("Git pull --rebase")
+                    vim.cmd.Git({'pull',  '--rebase'})
                 end, opts)
 
                 vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
             end,
         })
-    end}
+
+
+        vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
+        vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
+    end
+}

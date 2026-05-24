@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.keymap.set('n', '<leader>w', '<C-w>', { remap = true })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
@@ -24,19 +25,30 @@ vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
+vim.keymap.set("n", "<leader>xe", function()
+	vim.diagnostic.setqflist({
+		severity = vim.diagnostic.severity.ERROR,
+	})
+	vim.cmd("copen")
+end)
+
+vim.keymap.set("n", "<leader>st", function()
+	vim.cmd.vnew()
+	vim.cmd.term()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 5)
+end)
+
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(ev)
-        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-        local opts = {buffer = ev.buf}
-        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-        vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-        vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    end
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+		local opts = { buffer = ev.buf }
+		vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+		vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+		vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+		vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+	end
 })
 
 vim.keymap.set('x', '<leader>p', [["_dP]])

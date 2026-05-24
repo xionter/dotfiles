@@ -24,14 +24,11 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
 	spec = {
 		{
-			'vague2k/vague.nvim',
-			lazy = false,
-			priority = 1000,
+			"rose-pine/neovim",
+			name = "rose-pine",
 			config = function()
-				vim.cmd("colorscheme vague")
-				require("vague").setup({
-				})
-			end,
+				vim.cmd("colorscheme rose-pine")
+			end
 		},
 		{ import = "config.plugins" },
 	},
